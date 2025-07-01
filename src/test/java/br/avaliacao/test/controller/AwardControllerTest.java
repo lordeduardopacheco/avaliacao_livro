@@ -47,11 +47,17 @@ public class AwardControllerTest {
 
     @Test
     public void testGetAwardIntervals() throws Exception {
-        mockMvc.perform(get("/api/awards/intervals"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.min").isArray())
-                .andExpect(jsonPath("$.min[0].producer", is("Producer 1")))
-                .andExpect(jsonPath("$.max").isArray())
-                .andExpect(jsonPath("$.max[0].producer", is("Producer 2")));
+    mockMvc.perform(get("/api/awards/intervals"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.min").isArray())
+            .andExpect(jsonPath("$.min[0].producer", is("Producer 1")))
+            .andExpect(jsonPath("$.min[0].interval", is(1)))
+            .andExpect(jsonPath("$.min[0].previousWin", is(2008)))
+            .andExpect(jsonPath("$.min[0].followingWin", is(2009)))
+            .andExpect(jsonPath("$.max").isArray())
+            .andExpect(jsonPath("$.max[0].producer", is("Producer 2")))
+            .andExpect(jsonPath("$.max[0].interval", is(99)))
+            .andExpect(jsonPath("$.max[0].previousWin", is(1900)))
+            .andExpect(jsonPath("$.max[0].followingWin", is(1999)));
     }
 }
